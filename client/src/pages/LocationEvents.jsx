@@ -1,40 +1,37 @@
-import React, { useState, useEffect } from 'react'
-import Event from '../components/Event'
-import '../css/LocationEvents.css'
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { fetchEventsByLocation } from "../services/api";
 
-const LocationEvents = ({index}) => {
-    const [location, setLocation] = useState([])
-    const [events, setEvents] = useState([])
+const Events = () => {
+  const [events, setEvents] = useState([]);
+  const { location_id } = useParams();
 
-    return (
-        <div className='location-events'>
-            <header>
-                <div className='location-image'>
-                    <img src={location.image} />
-                </div>
+  useEffect(() => {
+    const getEvents = async () => {
+      const data = await fetchEventsByLocation(location_id);
+      setEvents(data);
+    };
+    getEvents();
+  }, [location_id]);
 
-                <div className='location-info'>
-                    <h2>{location.name}</h2>
-                    <p>{location.address}, {location.city}, {location.state} {location.zip}</p>
-                </div>
-            </header>
+  return (
+    <div className="container">
+      <h2>Events in this Realm</h2>
+      {events && events.length > 0 ? (
+        events.map((event) => (
+          <article key={event.id}>
+            <hgroup>
+              <h4>{event.name}</h4>
+              <h5>Date: {new Date(event.date).toLocaleString()}</h5>
+            </hgroup>
+            <p>{event.description}</p>
+          </article>
+        ))
+      ) : (
+        <p>No events found for this location.</p>
+      )}
+    </div>
+  );
+};
 
-            <main>
-                {
-                    events && events.length > 0 ? events.map((event, index) =>
-                        <Event
-                            key={event.id}
-                            id={event.id}
-                            title={event.title}
-                            date={event.date}
-                            time={event.time}
-                            image={event.image}
-                        />
-                    ) : <h2><i className="fa-regular fa-calendar-xmark fa-shake"></i> {'No events scheduled at this location yet!'}</h2>
-                }
-            </main>
-        </div>
-    )
-}
-
-export default LocationEvents
+export default Events;

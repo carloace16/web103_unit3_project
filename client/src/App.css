@@ -1,33 +1,51 @@
-.app {
-    background: url('./assets/unitygrid.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-    background-attachment: fixed;
+/* --- Final Custom Styles --- */
+
+.App {
+  background: url("./assets/unitygrid.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  min-height: 100vh;
 }
 
-header {
-    padding: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+/* 1. Correctly targets the article "boxes" on ALL pages */
+.container article {
+  background-color: #192734; /* Solid, opaque dark color from the Pico theme */
+  border: 1px solid #344d64;
 }
 
-.main-header {
-    height: 30vh;
-    width: 85vw;
-    align-items: flex-end;
-    position: relative;
-    z-index: 1;
+/* 2. Correctly targets ALL text inside the boxes to make it bright */
+.container article {
+  background-color: #192734;
+  border: 1px solid #344d64;
+  padding: 0; /* REMOVE padding from the article itself */
+  border-radius: 0.5rem; /* Add rounded corners for a nicer look */
+  overflow: hidden; /* This hides the sharp corners of the image */
+}
+.container article .card-body {
+  padding: 1.5rem;
 }
 
-.header-buttons {
-    width: 30%;
-    display: flex;
-    justify-content: space-around;
+/* 3. Header Layout */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: rgba(17, 25, 31, 0.6);
+  backdrop-filter: blur(4px);
 }
 
-.header-buttons button {
-    margin-right: 20px;
-    margin-left: 20px;
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* 4. Home Button Size */
+.homeBtn {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  margin: 0;
 }
